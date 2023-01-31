@@ -21,8 +21,10 @@ hartford1 <- read_csv("C:\\Users\\kates\\Downloads\\tabula-Address_FOI__9_.csv",
 ```{r}
 classical_magnet <- read_csv("C:\\Users\\kates\\Downloads\\tabula-Address_FOI__10_ (1).csv", skip=1) 
   
+  
 ```
 ```{r}
+
 classical_magnet_law <- classical_magnet %>% 
   filter(`Agency Type` == "LAW") %>% 
   group_by(`Event Type`) %>% 
