@@ -12,25 +12,117 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(lubridate)
 ```
-```{r}
-hartford1 <- read_csv("C:\\Users\\kates\\Downloads\\tabula-Address_FOI__9_.csv", skip=1)
-  
 
-
-```
 ```{r}
-classical_magnet <- read_csv("C:\\Users\\kates\\Downloads\\tabula-Address_FOI__10_ (1).csv", skip=1) 
+classical_magnet <- read_csv("C:\\Users\\kates\\Downloads\\fixed_file.csv", skip=1) 
   
   
 ```
+
+#Just cops. Find most common reasons for calls out.
 ```{r}
 
 classical_magnet_law <- classical_magnet %>% 
   filter(`Agency Type` == "LAW") %>% 
   group_by(`Event Type`) %>% 
   summarise(count=n()) %>% 
-  arrange(desc)
+  arrange(desc(count))
+
   
 ```
+most common is directed patrol, then juvenille complaint, then silent alarm
 
+
+#Same but for EMS/FIRE
+```{r}
+classical_magnet_ems_fire <- classical_magnet %>% 
+  filter(`Agency Type`=="FIRE"|`Agency Type`=="EMS") %>% 
+  group_by(`Event Type`) %>% 
+  summarise(count=n()) %>% 
+  arrange(desc(count))
+```
+
+#read in bulkeley(585 wethersfield and 395 lyme)
+```{r}
+bulkeley1 <- read_csv("C:\\Users\\kates\\Downloads\\copsinschools\\585wethersfield_fixed.csv",skip=1)
+
+```
+#just cops
+```{r}
+bulkeley1_law <- bulkeley1 %>% 
+  filter(`Agency Type`=="LAW") %>% 
+  group_by(`Event Type`) %>% 
+  summarise(count=n()) %>% 
+  arrange(desc(count))
+```
+
+```{r}
+bulkeley2 <- read_csv("C:\\Users\\kates\\Downloads\\395Lymefixed.csv")
+
+bulkeley2_law <- bulkeley2 %>% 
+  filter(`Agency Type`=="LAW") %>% 
+  group_by(`Event Type`) %>% 
+  summarise(count=n()) %>% 
+  arrange(desc(count))
+```
+#silent alarm is far and away most common at both addresses
+
+```{r}
+bulkeley1_ems_fire <- bulkeley1 %>% 
+  filter(`Agency Type`=="FIRE"|`Agency Type`=="EMS") %>% 
+  group_by(`Event Type`) %>% 
+  summarise(count=n()) %>% 
+  arrange(desc(count))
+```
+
+```{r}
+bulkeley2_ems_fire <- bulkeley2 %>% 
+  filter(`Agency Type`=="FIRE"|`Agency Type`=="EMS") %>% 
+  group_by(`Event Type`) %>% 
+  summarise(count=n()) %>% 
+  arrange(desc(count))
+```
+#breathing difficulty, unconscious person, respectively
+
+
+#Hartford Magnet
+```{r}
+hartford_magnet <- read_csv("C:\\Users\\kates\\Downloads\\53vernon.csv",skip=1)
+
+hartford_magnet_law <- hartford_magnet %>% 
+  filter(`Agency Type`=="LAW") %>% 
+  group_by(`Event Type`) %>% 
+  summarise(count=n()) %>% 
+  arrange(desc(count))
+```
+#silent alarm!
+
+```{r}
+hartford_magnet_ems_fire <- hartford_magnet %>% 
+  filter(`Agency Type`=="FIRE"|`Agency Type`=="EMS") %>% 
+  group_by(`Event Type`) %>% 
+  summarise(count=n()) %>% 
+  arrange(desc(count))
+```
+#suicidal super high, group_by date to check how many actual. calling EMS =/ calling cops.
+
+```{r}
+kinsella <- read_csv("C:\\Users\\kates\\Downloads\\415granby.csv", skip=1)
+
+kinsella_law <- kinsella %>% 
+  filter(`Agency Type`=="LAW") %>% 
+  group_by(`Event Type`) %>% 
+  summarise(count=n()) %>% 
+  arrange(desc(count))
+```
+#directed patrol, silent alarm, community service
+
+```{r}
+kinsella_ems_fire <- kinsella %>% 
+  filter(`Agency Type`== "FIRE"|`Agency Type`=="EMS") %>% 
+  group_by(`Event Type`) %>% 
+  summarise(count=n()) %>% 
+  arrange(desc(count))
+```
+#alarm box, emotional disturb non-violent
 
